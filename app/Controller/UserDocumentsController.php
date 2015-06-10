@@ -53,21 +53,16 @@ class UserDocumentsController extends AppController {
         if ($this->request->is('post')) {
             //getting doc and user info
             $uid = AuthComponent::user("id");
-            $doc = $this->request->data;
-
-            //check
-            
-            //upload document to the webroot
-            if ($doc["size"] > 0) {
-                $doc["dir"] = WWW_ROOT . "users" . DS . $uid;
-                move_uploaded_file($docs["tmp_name"], $docs["dir"]);                
-            } else {
-                $this->Session->setFlash(__('The user document could not be saved. Please, try again.'));
-            }
+            $doc = $this->request->data;           
             
             //adding database record
             $this->UserDocument->create();
             if ($this->UserDocument->save($this->request->data)) {
+                //moving document to user dir
+                
+                
+                
+                //message and redirect
                 $this->Session->setFlash(__('The user document has been saved.'));
                 return $this->redirect(array('action' => 'index'));
             } else {
