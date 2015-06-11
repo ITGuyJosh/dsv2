@@ -55,7 +55,10 @@ class UserDocumentsController extends AppController {
             $uid = AuthComponent::user("id");
             $tmp_name = $this->request->data["UserDocument"]["Documents"]["tmp_name"];
             $file_name = $this->request->data["UserDocument"]["Documents"]["name"];            
-            $target = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;                                   
+            $docsdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS;
+            $arcdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
+            $target = $docsdir . $file_name;
+            
             
             //adding new document & record            
             if (!file_exists($target)) {
@@ -76,28 +79,29 @@ class UserDocumentsController extends AppController {
                 //return $this->redirect(array('action' => 'index'));
             
             //moving old document, updating its db entry, saving new, adding new entry
-            } elseif(file_exists($target)) {
-                //set new location
-                $archive = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS . $file_name;                
+            } elseif(file_exists($target)) {                                
                 //get current version
                 $ver = $this->UserDocument->find("first", array(
                     "conditions" => array(
                         "dir" => $target
                     ),
                     "recursive" => -1
-                ));                                
-                //update record
+                ));
+                $ver = $ver["UserDocument"]["ver"];
+                //set new location with old version number
+                $archive = $arcdir . $ver . "-" . $file_name;
+                //update record & editing the filename                
                 $this->UserDocument->updateAll(array(
                     "UserDocument.dir" => "'$archive'",
                 ), array(
                     "UserDocument.dir" => "'$target'"
                 ));
-                //move file
+                //move old document to archive
                 rename($target, $archive);
                 //upload new file
                 move_uploaded_file($tmp_name, $target);
                 //iterating version for new record
-                $ver = $ver["UserDocument"]["ver"] + 1;
+                $ver = $ver + 1;
                 //add new record & update version
                 $this->UserDocument->create();
                 $this->UserDocument->save(array(
