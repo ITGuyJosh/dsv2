@@ -89,7 +89,7 @@ class UserDocumentsController extends AppController {
                 ));
                 $ver = $ver["UserDocument"]["ver"];
                 //set new location with old version number
-                $archive = $arcdir . $ver . "-" . $file_name;
+                $archive = $arcdir . "[archived]" . $file_name;
                 //update record & editing the filename                
                 $this->UserDocument->updateAll(array(
                     "UserDocument.dir" => "'$archive'",
@@ -101,7 +101,7 @@ class UserDocumentsController extends AppController {
                 //upload new file
                 move_uploaded_file($tmp_name, $target);
                 //iterating version for new record
-                $ver = $ver + 1;
+                $ver = $ver++;
                 //add new record & update version
                 $this->UserDocument->create();
                 $this->UserDocument->save(array(
