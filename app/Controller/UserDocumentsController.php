@@ -101,7 +101,7 @@ class UserDocumentsController extends AppController {
                 //upload new file
                 move_uploaded_file($tmp_name, $target);
                 //iterating version for new record
-                $ver = $ver++;
+                $ver = $ver + 1;
                 //add new record & update version
                 $this->UserDocument->create();
                 $this->UserDocument->save(array(
