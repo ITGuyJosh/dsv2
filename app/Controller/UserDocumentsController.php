@@ -80,19 +80,12 @@ class UserDocumentsController extends AppController {
             
             //moving old document, updating its db entry, saving new, adding new entry
             } elseif(file_exists($target)) {                                
-                //get current version
-                $ver = $this->UserDocument->find("first", array(
-                    "conditions" => array(
-                        "dir" => $target
-                    ),
-                    "recursive" => -1
-                ));
-                $ver = $ver["UserDocument"]["ver"];
-                //set new location with old version number
+                //set new location and update version number
                 $archive = $arcdir . "[archived]" . $file_name;
-                //update record & editing the filename                
+                //update record & editing the filename, set version as 2               
                 $this->UserDocument->updateAll(array(
                     "UserDocument.dir" => "'$archive'",
+                    "UserDocument.ver" => 2
                 ), array(
                     "UserDocument.dir" => "'$target'"
                 ));
@@ -100,16 +93,14 @@ class UserDocumentsController extends AppController {
                 rename($target, $archive);
                 //upload new file
                 move_uploaded_file($tmp_name, $target);
-                //iterating version for new record
-                $ver = $ver + 1;
-                //add new record & update version
+                //add new record and set version as 1
                 $this->UserDocument->create();
                 $this->UserDocument->save(array(
                     "UserDocument" => array(
                         "user_id" => $uid,
                         "name" => $file_name,
                         "dir" => $target,
-                        "ver" => $ver
+                        "ver" => 1
                     )
                 ));                
                 $this->Session->setFlash(__('The document has been saved and the previous version has been moved to your archive.'));
