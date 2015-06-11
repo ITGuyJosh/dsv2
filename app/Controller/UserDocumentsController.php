@@ -55,12 +55,13 @@ class UserDocumentsController extends AppController {
             $uid = AuthComponent::user("id");
             $tmp_name = $this->request->data["UserDocument"]["Documents"]["tmp_name"];
             $file_name = $this->request->data["UserDocument"]["Documents"]["name"];            
-            $target = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;           
-            //move document
-            move_uploaded_file($tmp_name, $target);
+            $target = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;                                   
             
-            //adding database record            
-            if (file_exists($target)) {
+            //adding new document & record            
+            if (!file_exists($target)) {
+                //upload doc
+                move_uploaded_file($tmp_name, $target);
+                //create record
                 $this->UserDocument->create();
                 $this->UserDocument->save(array(
                     "UserDocument" => array(
@@ -70,15 +71,46 @@ class UserDocumentsController extends AppController {
                         "ver" => 1
                     )
                 ));
-                //moving document to user dir
-                
-                
                 //message and redirect
-                $this->Session->setFlash(__('The user document has been saved.'));
-                
-//                return $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('The user document has been saved.'));               
+                //return $this->redirect(array('action' => 'index'));
+            
+            //moving old document, updating its db entry, saving new, adding new entry
+            } elseif(file_exists($target)) {
+                //set new location
+                $archive = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS . $file_name;                
+                //get current version
+                $ver = $this->UserDocument->find("first", array(
+                    "conditions" => array(
+                        "dir" => $target
+                    ),
+                    "recursive" => -1
+                ));                                
+                //update record
+                $this->UserDocument->updateAll(array(
+                    "UserDocument.dir" => "'$archive'",
+                ), array(
+                    "UserDocument.dir" => "'$target'"
+                ));
+                //move file
+                rename($target, $archive);
+                //upload new file
+                move_uploaded_file($tmp_name, $target);
+                //iterating version for new record
+                $ver = $ver["UserDocument"]["ver"] + 1;
+                //add new record & update version
+                $this->UserDocument->create();
+                $this->UserDocument->save(array(
+                    "UserDocument" => array(
+                        "user_id" => $uid,
+                        "name" => $file_name,
+                        "dir" => $target,
+                        "ver" => $ver
+                    )
+                ));                
+                $this->Session->setFlash(__('The document has been saved and the previous version has been moved to your archive.'));
             } else {
-                $this->Session->setFlash(__('The user document could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The document could not be saved. Please, try again or contact your systems administrator.'));
             }
         }
         $users = $this->UserDocument->User->find('list');
