@@ -53,18 +53,30 @@ class UserDocumentsController extends AppController {
         if ($this->request->is('post')) {
             //getting doc and user info
             $uid = AuthComponent::user("id");
-            $doc = $this->request->data;           
+            $tmp_name = $this->request->data["UserDocument"]["Documents"]["tmp_name"];
+            $file_name = $this->request->data["UserDocument"]["Documents"]["name"];            
+            $target = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;           
+            //move document
+            move_uploaded_file($tmp_name, $target);
             
-            //adding database record
-            $this->UserDocument->create();
-            if ($this->UserDocument->save($this->request->data)) {
+            //adding database record            
+            if (file_exists($target)) {
+                $this->UserDocument->create();
+                $this->UserDocument->save(array(
+                    "UserDocument" => array(
+                        "user_id" => $uid,
+                        "name" => $file_name,
+                        "dir" => $target,
+                        "ver" => 1
+                    )
+                ));
                 //moving document to user dir
-                
                 
                 
                 //message and redirect
                 $this->Session->setFlash(__('The user document has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                
+//                return $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The user document could not be saved. Please, try again.'));
             }
