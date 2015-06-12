@@ -58,8 +58,7 @@ class UserDocumentsController extends AppController {
             $docsdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS;
             $arcdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
             $target = $docsdir . $file_name;
-            
-            
+
             //adding new document & record            
             if (!file_exists($target)) {
                 //upload doc
@@ -81,16 +80,18 @@ class UserDocumentsController extends AppController {
             //moving old document, updating its db entry, saving new, adding new entry
             } elseif(file_exists($target)) {                                
                 //set new location and update version number
-                $archive = $arcdir . "[archived]" . $file_name;
+                $target2 = $arcdir . "[archived]" . $file_name;
+                //adding additional backslashes to sql because of how cakephp is handling it
+                $target2 = str_replace('\\', '\\\\', $target2);
                 //update record & editing the filename, set version as 2               
                 $this->UserDocument->updateAll(array(
-                    "UserDocument.dir" => "'$archive'",
+                    "UserDocument.dir" => "'$target2'",
                     "UserDocument.ver" => 2
                 ), array(
-                    "UserDocument.dir" => "'$target'"
+                    "UserDocument.dir" => $target
                 ));
                 //move old document to archive
-                rename($target, $archive);
+                rename($target, $target2);
                 //upload new file
                 move_uploaded_file($tmp_name, $target);
                 //add new record and set version as 1
