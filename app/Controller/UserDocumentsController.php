@@ -28,6 +28,11 @@ class UserDocumentsController extends AppController {
         $this->UserDocument->recursive = 0;
         $this->set('userDocuments', $this->Paginator->paginate());
     }
+    
+    public function udash() {
+        $this->UserDocument->recursive = 0;
+        $this->set('userDocuments', $this->Paginator->paginate());
+    }
 
     /**
      * view method

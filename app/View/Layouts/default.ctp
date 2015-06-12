@@ -43,6 +43,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <ul>
                                 <li><?= $this->Html->link("users", array("controller" => "users", "action" => "index")) ?></li>
                                 <li><?= $this->Html->link("user docs", array("controller" => "user_documents", "action" => "index")) ?></li>
+                                <li><?= $this->Html->link("user dash", array("controller" => "user_documents", "action" => "udash")) ?></li>
                                 <li><?= $this->Html->link("groups", array("controller" => "groups", "action" => "index")) ?></li>
                                 <li><?= $this->Html->link("group docs", array("controller" => "group_documents", "action" => "index")) ?></li>
                                 <li><?= $this->Html->link("tags", array("controller" => "tags", "action" => "index")) ?></li>
