@@ -46,5 +46,14 @@ class UserDocument extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+        
+        function uDocs($uid){
+            $uDocs = $this->find("all", array(
+                "conditions" => array(
+                    "user_id" => $uid
+                )
+            ));
+            return $uDocs;
+        }
 
 }

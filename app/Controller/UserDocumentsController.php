@@ -30,8 +30,11 @@ class UserDocumentsController extends AppController {
     }
     
     public function udash() {
-        $this->UserDocument->recursive = 0;
-        $this->set('userDocuments', $this->Paginator->paginate());
+        $uid = AuthComponent::user("id");
+        //get user documents
+        $uDocs = $this->UserDocument->uDocs($uid);
+        $this->set("uDocs", $uDocs);
+                
     }
 
     /**
