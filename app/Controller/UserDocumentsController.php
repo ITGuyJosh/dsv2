@@ -53,60 +53,67 @@ class UserDocumentsController extends AppController {
         if ($this->request->is('post')) {
             //getting doc and user info
             $uid = AuthComponent::user("id");
-            $tmp_name = $this->request->data["UserDocument"]["Documents"]["tmp_name"];
-            $file_name = $this->request->data["UserDocument"]["Documents"]["name"];            
+            $doc = $this->request->data["UserDocument"]["Documents"];
+            $tmp_name = $doc["tmp_name"];
+            $file_name = $doc["name"];
+            $file_size = $doc["size"];
             $docsdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS;
             $arcdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
             $target = $docsdir . $file_name;
 
-            //adding new document & record            
-            if (!file_exists($target)) {
-                //upload doc
-                move_uploaded_file($tmp_name, $target);
-                //create record
-                $this->UserDocument->create();
-                $this->UserDocument->save(array(
-                    "UserDocument" => array(
-                        "user_id" => $uid,
-                        "name" => $file_name,
-                        "dir" => $target,
-                        "ver" => 1
-                    )
-                ));
-                //message and redirect
-                $this->Session->setFlash(__('The user document has been saved.'));               
-                //return $this->redirect(array('action' => 'index'));
-            
-            //moving old document, updating its db entry, saving new, adding new entry
-            } elseif(file_exists($target)) {                                
-                //set new location and update version number
-                $target2 = $arcdir . "[archived]" . $file_name;
-                //adding additional backslashes to sql because of how cakephp is handling it
-                $target2 = str_replace('\\', '\\\\', $target2);
-                //update record & editing the filename, set version as 2               
-                $this->UserDocument->updateAll(array(
-                    "UserDocument.dir" => "'$target2'",
-                    "UserDocument.ver" => 2
-                ), array(
-                    "UserDocument.dir" => $target
-                ));
-                //move old document to archive
-                rename($target, $target2);
-                //upload new file
-                move_uploaded_file($tmp_name, $target);
-                //add new record and set version as 1
-                $this->UserDocument->create();
-                $this->UserDocument->save(array(
-                    "UserDocument" => array(
-                        "user_id" => $uid,
-                        "name" => $file_name,
-                        "dir" => $target,
-                        "ver" => 1
-                    )
-                ));                
-                $this->Session->setFlash(__('The document has been saved and the previous version has been moved to your archive.'));
+            if ($file_size >= 10000000) {
+                $this->Session->setFlash(__('The document is too large. Please ensure it is under 10MB and try again.'));
+                return $this->redirect(array('action' => 'add'));                                
             } else {
-                $this->Session->setFlash(__('The document could not be saved. Please, try again or contact your systems administrator.'));
+                //adding new document & record            
+                if (!file_exists($target)) {
+                    //upload doc
+                    move_uploaded_file($tmp_name, $target);
+                    //create record
+                    $this->UserDocument->create();
+                    $this->UserDocument->save(array(
+                        "UserDocument" => array(
+                            "user_id" => $uid,
+                            "name" => $file_name,
+                            "dir" => $target,
+                            "ver" => 1
+                        )
+                    ));
+                    //message and redirect
+                    $this->Session->setFlash(__('The user document has been saved.'));
+                    //return $this->redirect(array('action' => 'index'));
+                    
+                //moving old document, updating its db entry, saving new, adding new entry
+                } elseif (file_exists($target)) {
+                    //set new location and update version number
+                    $target2 = $arcdir . "[archived]" . $file_name;
+                    //adding additional backslashes to sql because of how cakephp is handling it
+                    $target2 = str_replace('\\', '\\\\', $target2);
+                    //update record & editing the filename, set version as 2               
+                    $this->UserDocument->updateAll(array(
+                        "UserDocument.dir" => "'$target2'",
+                        "UserDocument.ver" => 2
+                            ), array(
+                        "UserDocument.dir" => $target
+                    ));
+                    //move old document to archive
+                    rename($target, $target2);
+                    //upload new file
+                    move_uploaded_file($tmp_name, $target);
+                    //add new record and set version as 1
+                    $this->UserDocument->create();
+                    $this->UserDocument->save(array(
+                        "UserDocument" => array(
+                            "user_id" => $uid,
+                            "name" => $file_name,
+                            "dir" => $target,
+                            "ver" => 1
+                        )
+                    ));
+                    $this->Session->setFlash(__('The document has been saved and the previous version has been moved to your archive.'));
+                } else {
+                    $this->Session->setFlash(__('The document could not be saved. Please, try again or contact your systems administrator.'));
+                }
             }
         }
         $users = $this->UserDocument->User->find('list');
