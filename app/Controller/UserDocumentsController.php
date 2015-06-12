@@ -50,9 +50,16 @@ class UserDocumentsController extends AppController {
      * @return void
      */
     public function add() {
+        //getting and setting tags
+        $tags = $this->UserDocument->UserDocumentTag->Tag->find("list");
+        $this->set("tags", $tags);
+        print_r($tags);
+        
         if ($this->request->is('post')) {
-            //getting doc and user info
+            //user info
             $uid = AuthComponent::user("id");
+           
+            //doc info            
             $doc = $this->request->data["UserDocument"]["Documents"];
             $tmp_name = $doc["tmp_name"];
             $file_name = $doc["name"];
@@ -61,6 +68,7 @@ class UserDocumentsController extends AppController {
             $arcdir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
             $target = $docsdir . $file_name;
 
+            //file size check
             if ($file_size >= 10000000) {
                 $this->Session->setFlash(__('The document is too large. Please ensure it is under 10MB and try again.'));
                 return $this->redirect(array('action' => 'add'));                                
@@ -79,6 +87,12 @@ class UserDocumentsController extends AppController {
                             "ver" => 1
                         )
                     ));
+                    
+                    //tag info & save
+                    $tags = $this->request->data["UserDocument"]["Tags"];
+                    $docID = $this->UserDocument->id;
+                    $this->UserDocument->UserDocumentTag->saveDocTags($tags, $docID);
+                    
                     //message and redirect
                     $this->Session->setFlash(__('The user document has been saved.'));
                     //return $this->redirect(array('action' => 'index'));
@@ -178,6 +192,10 @@ class UserDocumentsController extends AppController {
             $this->Session->setFlash(__('The user document could not be deleted. Please, try again.'));
         }
         return $this->redirect(array('action' => 'index'));
+    }
+    
+    public function saveTags($tags){
+        
     }
 
 }

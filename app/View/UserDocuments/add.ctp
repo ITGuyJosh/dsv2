@@ -7,11 +7,12 @@
     <fieldset>
         <legend><?php echo __('Add User Document'); ?></legend>
         <?php
-//		echo $this->Form->input('user_id');
-//		echo $this->Form->input('name');
-//		echo $this->Form->input('dir');
-//		echo $this->Form->input('ver');
             echo $this->Form->file("Documents");
+            echo $this->Form->input("Tags", array(
+                "type" => "select",
+                "multiple" => "checkbox",
+                "options" => $tags
+            ));
         ?>
     </fieldset>
         <?php echo $this->Form->end(__('Submit')); ?>

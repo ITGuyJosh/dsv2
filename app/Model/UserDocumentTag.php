@@ -32,4 +32,14 @@ class UserDocumentTag extends AppModel {
 			'order' => ''
 		)
 	);
+        
+        public function saveDocTags($tags, $docID){
+            foreach($tags as $tag){
+                $this->create();
+                $this->save(array(
+                    "user_document_id" => $docID,
+                    "tag_id" => $tag
+                ));
+            }
+        }
 }
