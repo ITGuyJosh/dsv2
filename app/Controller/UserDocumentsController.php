@@ -85,14 +85,25 @@ class UserDocumentsController extends AppController {
                     
                 //moving old document, updating its db entry, saving new, adding new entry
                 } elseif (file_exists($target)) {
+                    
+                    $ver = $this->UserDocument->find("all", array(
+                        "conditions" => array(
+                            "dir" => $target
+                        ),
+                        "recursive" => -1
+                    )); 
+                    $ver = $ver[0]["UserDocument"]["ver"];
+                    
+                    
                     //set new location and update version number
-                    $target2 = $arcdir . "[archived]" . $file_name;
+                    $target2 = $arcdir . $ver . "-" . $file_name;
                     //adding additional backslashes to sql because of how cakephp is handling it
                     $target2 = str_replace('\\', '\\\\', $target2);
+
                     //update record & editing the filename, set version as 2               
                     $this->UserDocument->updateAll(array(
                         "UserDocument.dir" => "'$target2'",
-                        "UserDocument.ver" => 2
+                        "UserDocument.ver" => "'$ver'"
                             ), array(
                         "UserDocument.dir" => $target
                     ));
@@ -100,6 +111,8 @@ class UserDocumentsController extends AppController {
                     rename($target, $target2);
                     //upload new file
                     move_uploaded_file($tmp_name, $target);
+                    //new version
+                    $newver = $ver + 1;
                     //add new record and set version as 1
                     $this->UserDocument->create();
                     $this->UserDocument->save(array(
@@ -107,7 +120,7 @@ class UserDocumentsController extends AppController {
                             "user_id" => $uid,
                             "name" => $file_name,
                             "dir" => $target,
-                            "ver" => 1
+                            "ver" => $newver
                         )
                     ));
                     $this->Session->setFlash(__('The document has been saved and the previous version has been moved to your archive.'));
