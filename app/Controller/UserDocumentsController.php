@@ -205,6 +205,7 @@ class UserDocumentsController extends AppController {
         $uid = AuthComponent::user("id");
         //get user documents & affilated tags
         $uDocs = $this->UserDocument->uDocs($uid);
+        $this->set("uid", $uid);
         $this->set("uDocs", $uDocs);
         
 //        $uTags = $this->UserDocument->UserDocumentTag->findTags();

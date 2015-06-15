@@ -21,7 +21,6 @@ $cakeDescription = __d('cake_dev', 'Document Store');
         <?php echo $this->Html->charset(); ?>
         <title>
             <?php echo $cakeDescription ?>:
-            <?php echo $this->fetch('title'); ?>
         </title>
         <?php
         echo $this->Html->meta('icon');

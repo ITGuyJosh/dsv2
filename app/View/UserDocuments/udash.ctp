@@ -1,6 +1,8 @@
 <div class="udash">
     <h2 style="margin-bottom: 0px;"><?php echo __('Documents'); ?></h2>
+    
     <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Upload Document", array("action" => "add")); ?></span>
+    <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Assigned Documents", array("controller" => "group_documents", "action" => "ugroup", $uid)); ?></span>
     <table id="uDocs">
         <thead>
             <tr>
@@ -30,6 +32,7 @@
 echo $this->Html->css('jquery.dataTables.min');
 echo $this->Html->script('jquery');
 echo $this->Html->script('jquery.dataTables.min');
+debug($uDocs);
 ?>    
 <script>
     $(document).ready(function () {

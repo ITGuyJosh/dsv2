@@ -105,4 +105,10 @@ class GroupDocumentsController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+        
+        public function ugroup($uid) {            
+            if($this->Auth->user("id") == $uid){
+                
+            }
+	}
 }
