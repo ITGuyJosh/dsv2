@@ -120,9 +120,9 @@ class GroupDocumentsController extends AppController {
             return $this->redirect(array("controller" => "users", 'action' => 'login'));
         }
         
-        $gDocs = $this->GroupDocument->findGroupDocs($uid);
-        
-        debug($gDocs);
+        //finding and setting user group documents to view
+        $gDocs = $this->GroupDocument->findGroupDocs($uid);        
+        $this->set("gDocs", $gDocs);
         
     }
 
