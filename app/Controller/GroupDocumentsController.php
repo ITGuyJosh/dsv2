@@ -119,11 +119,26 @@ class GroupDocumentsController extends AppController {
             $this->Session->setFlash(__('You do not have appropriate credentials to access that section.'));
             return $this->redirect(array("controller" => "users", 'action' => 'login'));
         }
-        
+
         //finding and setting user group documents to view
-        $gDocs = $this->GroupDocument->findGroupDocs($uid);        
+        $gDocs = $this->GroupDocument->findGroupDocs($uid);
         $this->set("gDocs", $gDocs);
-        
+    }
+
+    public function download($gID) {
+        $this->autoRender = FALSE;
+
+        $path = $this->GroupDocument->find("first", array(
+            "conditions" => array(
+                "id" => $gID
+            ),
+            "fields" => array(
+                "dir"
+            ),
+            "recursive" => -1
+        ));
+
+        $this->response->file($path["GroupDocument"]["dir"], array("download" => true));
     }
 
 }
