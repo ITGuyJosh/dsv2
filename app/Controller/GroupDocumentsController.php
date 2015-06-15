@@ -123,6 +123,7 @@ class GroupDocumentsController extends AppController {
         //finding and setting user group documents to view
         $gDocs = $this->GroupDocument->findGroupDocs($uid);
         $this->set("gDocs", $gDocs);
+        $this->set("uid", $uid);
     }
 
     public function download($gID) {

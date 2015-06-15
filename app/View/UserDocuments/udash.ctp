@@ -1,4 +1,4 @@
-<div class="udash">
+<div class="dash">
     <h2 style="margin-bottom: 0px;"><?php echo __('Documents'); ?></h2>
     
     <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Upload Document", array("action" => "add")); ?></span>
@@ -30,9 +30,7 @@
 
 <?php
 echo $this->Html->css('jquery.dataTables.min');
-echo $this->Html->script('jquery');
 echo $this->Html->script('jquery.dataTables.min');
-debug($uDocs);
 ?>    
 <script>
     $(document).ready(function () {

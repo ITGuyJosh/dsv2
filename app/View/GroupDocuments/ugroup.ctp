@@ -1,8 +1,12 @@
-<?php 
-    //debug($gDocs); 
+<?php
+//debug($gDocs); 
 ?>
-
-<table>
+<div class="dash">
+    <h2 style="margin-bottom: 0px;"><?php echo __('Assigned Documents'); ?></h2>
+    
+    <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Upload Document", array("action" => "add")); ?></span>
+    <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Dashboard", array("controller" => "user_documents","action" => "udash"), $uid); ?></span>
+    <table id="gDocs">
         <thead>
             <tr>
                 <th><?php echo "Assigned Documents"; ?></th>
@@ -20,3 +24,14 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
+
+<?php
+echo $this->Html->css('jquery.dataTables.min');
+echo $this->Html->script('jquery.dataTables.min');
+?>    
+<script>
+    $(document).ready(function () {
+        $("#gDocs").DataTable();
+    });
+</script>    
