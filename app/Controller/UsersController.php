@@ -121,12 +121,20 @@ class UsersController extends AppController {
 
     public function login() {
         if ($this->request->is("post")) {
-
             //authenticate login via credentials
-            if ($this->Auth->login()) {
-                return $this->redirect(array("action" => "index"));
-            }
-            $this->Session->setFlash(__("Invalid username or password, please try again."));
+            if ($this->Auth->login()) {                 
+               $uid = AuthComponent::user("id");
+               //geting which type of user it is to navigate to appropriate dashboard
+               $user = $this->User->whichUser($uid);
+               if($user["User"]["role"] == "Admin"){
+                   return $this->redirect(array("action" => "adash"));
+               } elseif($user["User"]["role"] == "User"){
+                   return $this->redirect(array("controller" => "user_documents", "action" => "udash"));
+               } else{
+                   $this->Session->setFlash(__("Invalid username or password, please try again."));
+                   return $this->redirect(array("action" => "logout"));
+               }                
+            }            
         }
     }
 

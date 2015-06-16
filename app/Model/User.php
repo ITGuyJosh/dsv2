@@ -94,5 +94,14 @@ class User extends AppModel {
         }
         return true;
     }
+    
+        public function whichUser($uid){
+            $user = $this->find("first", array(
+                "conditions" => array(
+                    "user.id" => $uid
+                )
+            ));
+            return $user;
+        }
 
 }

@@ -47,3 +47,6 @@
         </tbody>
     </table>
 </div>
+<?php
+//debug($uid);
+?>
