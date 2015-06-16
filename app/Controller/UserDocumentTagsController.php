@@ -37,7 +37,7 @@ class UserDocumentTagsController extends AppController {
 			throw new NotFoundException(__('Invalid user document tag'));
 		}
 		$options = array('conditions' => array('UserDocumentTag.' . $this->UserDocumentTag->primaryKey => $id));
-		$this->set('userDocumentTag', $this->UserDocumentTag->find('first', $options));
+		$this->set('userDocumentTag', $this->UserDocumentTag->find('first', $options));                
 	}
 
 /**

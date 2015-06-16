@@ -46,9 +46,4 @@ class UserDocumentTag extends AppModel {
         }
     }
 
-//    public function findTags() {
-//        $uTags = $this->find("all");
-//        return $uTags;
-//    }
-
 }

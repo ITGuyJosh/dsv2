@@ -16,7 +16,7 @@
             <?php foreach ($uDocs as $uDoc): ?>
                 <tr>
                     <td><?php echo h($uDoc['UserDocument']['name']); ?>&nbsp;</td>
-                    <td style="text-align: center;"><?php //echo h($userDocument['UserDocument']['dir']);   ?>&nbsp;</td>
+                    <td style="text-align: center;"><?php echo h(implode(", ", $uDoc['Tags']));   ?>&nbsp;</td>
                     <td style="text-align: center;"><?php echo h($uDoc['UserDocument']['ver']); ?>&nbsp;</td>
                     <td class="actions" style="text-align: center;">
                         <?php echo $this->Html->link(__('Download'), array('action' => 'download', $uDoc['UserDocument']['id'])); ?>
@@ -31,6 +31,7 @@
 <?php
 echo $this->Html->css('jquery.dataTables.min');
 echo $this->Html->script('jquery.dataTables.min');
+debug($uDocs);
 ?>    
 <script>
     $(document).ready(function () {

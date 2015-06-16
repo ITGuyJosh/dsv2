@@ -28,7 +28,7 @@ class UserDocumentsController extends AppController {
         $this->UserDocument->recursive = 0;
         $this->set('userDocuments', $this->Paginator->paginate());
     }
-        
+
     /**
      * view method
      *
@@ -143,7 +143,7 @@ class UserDocumentsController extends AppController {
             }
         } else {
             $this->Session->setFlash(__('You must be logged in to access that page.'));
-            return $this->redirect(array("controller" => "users", "action" => "login"));            
+            return $this->redirect(array("controller" => "users", "action" => "login"));
         }
 
         $users = $this->UserDocument->User->find('list');
@@ -201,22 +201,19 @@ class UserDocumentsController extends AppController {
     public function saveTags($tags) {
         
     }
-    
+
     public function udash() {
         $uid = AuthComponent::user("id");
         //get user documents & affilated tags
         $uDocs = $this->UserDocument->uDocs($uid);
         $this->set("uid", $uid);
         $this->set("uDocs", $uDocs);
-        
-//        $uTags = $this->UserDocument->UserDocumentTag->findTags();
-//        $this->set("uTags", $uTags);
-                                
+
     }
-    
-    public function download($docID){
+
+    public function download($docID) {
         $this->autoRender = FALSE;
-        
+
         $path = $this->UserDocument->find("first", array(
             "conditions" => array(
                 "id" => $docID
@@ -226,7 +223,7 @@ class UserDocumentsController extends AppController {
             ),
             "recursive" => -1
         ));
-        
+
         $this->response->file($path["UserDocument"]["dir"], array("download" => true));
     }
 
