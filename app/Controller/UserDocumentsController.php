@@ -198,9 +198,6 @@ class UserDocumentsController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
-    public function saveTags($tags) {
-        
-    }
 
     public function udash() {
         $uid = AuthComponent::user("id");
