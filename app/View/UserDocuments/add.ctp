@@ -1,5 +1,4 @@
 <div class="addDoc">
-    
     <?php 
         echo $this->Form->create('UserDocument', array(
             "type" => "file"
