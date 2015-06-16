@@ -751,3 +751,14 @@ pre {
     margin-left: 20%; 
     margin-right: 20%;
 }
+#anav {
+    text-align: center;
+}
+#anav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#anav li{
+    display: inline;
+}
