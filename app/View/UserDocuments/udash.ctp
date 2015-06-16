@@ -31,7 +31,6 @@
 <?php
 echo $this->Html->css('jquery.dataTables.min');
 echo $this->Html->script('jquery.dataTables.min');
-debug($uDocs);
 ?>    
 <script>
     $(document).ready(function () {
