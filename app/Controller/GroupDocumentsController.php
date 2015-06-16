@@ -48,6 +48,10 @@ class GroupDocumentsController extends AppController {
      * @return void
      */
     public function add() {
+        
+        $uid = AuthComponent::user("id");
+        if($uid )
+        
         if ($this->request->is('post')) {
             $this->GroupDocument->create();
             if ($this->GroupDocument->save($this->request->data)) {
@@ -59,6 +63,7 @@ class GroupDocumentsController extends AppController {
         }
         $groups = $this->GroupDocument->Group->find('list');
         $this->set(compact('groups'));
+        $this->set("uid", $uid);
     }
 
     /**

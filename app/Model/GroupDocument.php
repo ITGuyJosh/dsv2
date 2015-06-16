@@ -44,4 +44,8 @@ class GroupDocument extends AppModel {
             
             return $gDocs;
         }
+        
+        public function uploadGroupDocs($uid){
+            
+        }
 }

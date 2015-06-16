@@ -134,5 +134,9 @@ class UsersController extends AppController {
         $this->Auth->logout();
         return $this->redirect(array("action" => "login"));
     }
+    
+    public function adash(){
+        
+    }
 
 }
