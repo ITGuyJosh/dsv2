@@ -38,11 +38,6 @@
 			<?php echo h($user['User']['company']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Role'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['role']); ?>

@@ -24,7 +24,6 @@
                 <th><?php echo $this->Paginator->sort('username'); ?></th>
                 <th><?php echo $this->Paginator->sort('email'); ?></th>
                 <th><?php echo $this->Paginator->sort('company'); ?></th>
-                <th><?php echo $this->Paginator->sort('password'); ?></th>
                 <th><?php echo $this->Paginator->sort('role'); ?></th>
                 <th><?php echo $this->Paginator->sort('group_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('created'); ?></th>
@@ -39,7 +38,6 @@
                     <td><?php echo h($user['User']['username']); ?>&nbsp;</td>
                     <td><?php echo h($user['User']['email']); ?>&nbsp;</td>
                     <td><?php echo h($user['User']['company']); ?>&nbsp;</td>
-                    <td><?php echo h($user['User']['password']); ?>&nbsp;</td>
                     <td><?php echo h($user['User']['role']); ?>&nbsp;</td>
                     <td>
                         <?php echo $this->Html->link($user['Group']['name'], array('controller' => 'groups', 'action' => 'view', $user['Group']['id'])); ?>

@@ -25,9 +25,9 @@ $cakeDescription = __d('cake_dev', 'Document Store');
         <?php
         echo $this->Html->meta('icon');
 
-        echo $this->Html->css('cake.generic');
+        echo $this->Html->css('docstore.generic');
         echo $this->Html->script('jquery');
-        
+
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
@@ -36,21 +36,28 @@ $cakeDescription = __d('cake_dev', 'Document Store');
     <body>
         <div id="container">            
             <div id="header">
-                <h1><?php echo $this->Html->link($cakeDescription, array("controller" => "Assets", "action" => "index")); ?></h1>
+                <h1><?php echo $this->Html->link($cakeDescription, array("controller" => "Users", "action" => "login")); ?></h1>
                 <div class="top-nav-container">
-                    <div class="top-nav">
-                        <ul class="top-nav-links">
-                        <li><?= $this->Html->link("users", array("controller" => "users", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("user docs", array("controller" => "user_documents", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("user dash", array("controller" => "user_documents", "action" => "udash")) ?></li>
-                        <li><?= $this->Html->link("groups", array("controller" => "groups", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("group docs", array("controller" => "group_documents", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("tags", array("controller" => "tags", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("user doc tags", array("controller" => "user_document_tags", "action" => "index")) ?></li>
-                        <li><?= $this->Html->link("login", array("controller" => "users", "action" => "login")) ?></li>
-                        <li><?= $this->Html->link("logout", array("controller" => "users", "action" => "logout")) ?></li>                                
+                    <?php if(1==1) { ?>
+                    <div id="anav">
+                        <ul>
+                            <li><?php echo $this->Html->link("Dashboard", array("controller" => "users", "action" => "adash"));?></li> 
+                            <li><?php echo $this->Html->link("Add User", array("controller" => "users", "action" => "add")); ?></li>
+                            <li><?php echo $this->Html->link("View Users", array("controller" => "users", "action" => "index")); ?></li>
+                            <li><?php echo $this->Html->link("Add Sector Document", array("controller" => "group_documents", "action" => "add"));?></li>
+                            <li><?php echo $this->Html->link("View Sector Documents", array("controller" => "group_documents", "action" => "index"));?></li>
+                            <li>
+                                <ul>
+                                    <li><?php echo $this->Html->link("Add Tags", array("controller" => "tags", "action" => "add"));?></li>
+                                    <li><?php echo $this->Html->link("View Tags", array("controller" => "tags", "action" => "index"));?></li>
+                                    <li><?php echo $this->Html->link("Add Sectors", array("controller" => "groups", "action" => "add"));?></li>
+                                    <li><?php echo $this->Html->link("View Sectors", array("controller" => "groups", "action" => "index"));?></li>
+                                    <li><?php echo $this->Html->link("Logout", array("controller" => "users", "action" => "logout"));?></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
             <div id="content">
