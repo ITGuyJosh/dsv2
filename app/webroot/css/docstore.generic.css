@@ -110,7 +110,7 @@ p {
     text-decoration: none;
 }
 .top-nav-container {
-    background-color: #AC7E64;
+    background-color: #9C8AA5;
     height: 70px;
 }
 .top-nav {
@@ -136,7 +136,7 @@ p {
     float: left;
 }
 .top-nav-links li{
-    background: #AC7E64;
+    background: #9C8AA5;
 }
 .top-nav-links {
     z-index: 999;
@@ -184,7 +184,7 @@ p {
 #footer {
 	clear: both;
 	padding: 6px 10px;
-        background-color: #AC7E64;
+        background-color: #9C8AA5;
         color: #333;
         height:200px;
 }
@@ -455,14 +455,14 @@ input, textarea {
 }
 select {
 	clear: both;
-	font-size: 120%;
+	font-size: 110%;
 	vertical-align: text-bottom;
 }
 select[multiple=multiple] {
 	width: 100%;
 }
 option {
-	font-size: 120%;
+	font-size: 110%;
 	padding: 0 3px;
 }
 input[type=checkbox] {
@@ -1051,7 +1051,10 @@ pre {
 }
 .addDoc{
     margin-left: 10%; 
-    margin-right: 10%;
+    margin-right: 10%;    
+}
+.addDoc input[type=file] {
+    font-size: larger;
 }
 #anav {
     text-align: center;
