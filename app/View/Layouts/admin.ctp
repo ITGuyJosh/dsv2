@@ -38,6 +38,24 @@ $cakeDescription = __d('cake_dev', 'Document Store');
             <div id="header">
                 <h1><?php echo $this->Html->link($cakeDescription, array("controller" => "Users", "action" => "login")); ?></h1>
                 <div class="top-nav-container">
+                    <div id="anav">
+                        <ul>
+                            <li><?php echo $this->Html->link("Dashboard", array("controller" => "users", "action" => "adash"));?></li> 
+                            <li><?php echo $this->Html->link("Add User", array("controller" => "users", "action" => "add")); ?></li>
+                            <li><?php echo $this->Html->link("View Users", array("controller" => "users", "action" => "index")); ?></li>
+                            <li><?php echo $this->Html->link("Add Sector Document", array("controller" => "group_documents", "action" => "add"));?></li>
+                            <li><?php echo $this->Html->link("View Sector Documents", array("controller" => "group_documents", "action" => "index"));?></li>
+                            <li>
+                                <ul>
+                                    <li><?php echo $this->Html->link("Add Tags", array("controller" => "tags", "action" => "add"));?></li>
+                                    <li><?php echo $this->Html->link("View Tags", array("controller" => "tags", "action" => "index"));?></li>
+                                    <li><?php echo $this->Html->link("Add Sectors", array("controller" => "groups", "action" => "add"));?></li>
+                                    <li><?php echo $this->Html->link("View Sectors", array("controller" => "groups", "action" => "index"));?></li>
+                                    <li><?php echo $this->Html->link("Logout", array("controller" => "users", "action" => "logout"));?></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div id="content">

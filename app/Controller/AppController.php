@@ -60,4 +60,7 @@ class AppController extends Controller {
         $this->autoRender = false;
         return WWW_ROOT;        
     }
+    public function getUserInfo(){
+        
+    }    
 }

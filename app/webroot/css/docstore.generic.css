@@ -1071,3 +1071,6 @@ pre {
 #anav a:hover {
     color: #F0F0F0;
 }
+#anav p {
+    color: #000;
+}
