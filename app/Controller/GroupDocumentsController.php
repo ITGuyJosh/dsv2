@@ -114,6 +114,7 @@ class GroupDocumentsController extends AppController {
     }
 
     public function ugroup($uid) {
+        $this->layout = "nonav";
 
         if (empty($uid)) {
             $this->Session->setFlash(__('You must be logged in to access that section.'));

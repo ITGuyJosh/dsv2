@@ -53,14 +53,11 @@ class AppController extends Controller {
     );
 
     public function beforeFilter() {
-        $this->Auth->allow();
+        $this->Auth->allow("login", "logout");
     }
     
     public function webroot(){
         $this->autoRender = false;
         return WWW_ROOT;        
     }
-    public function getUserInfo(){
-        
-    }    
 }

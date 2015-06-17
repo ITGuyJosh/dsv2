@@ -120,6 +120,7 @@ class UsersController extends AppController {
     }
 
     public function login() {
+        $this->layout = "nonav";
         if ($this->request->is("post")) {
             //authenticate login via credentials
             if ($this->Auth->login()) {                 
@@ -127,9 +128,9 @@ class UsersController extends AppController {
                //geting which type of user it is to navigate to appropriate dashboard
                $user = $this->User->whichUser($uid);
                if($user["User"]["role"] == "Admin"){
-                   $this->layout = "admin";
                    return $this->redirect(array("action" => "adash"));
                } elseif($user["User"]["role"] == "User"){
+                   $this->layout = "nonav";
                    return $this->redirect(array("controller" => "user_documents", "action" => "udash"));
                } else{
                    $this->Session->setFlash(__("Invalid username or password, please try again."));
@@ -140,6 +141,7 @@ class UsersController extends AppController {
     }
 
     public function logout() {
+        $this->layout = "nonav";
         $this->Auth->logout();
         return $this->redirect(array("action" => "login"));
     }

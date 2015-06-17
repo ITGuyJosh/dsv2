@@ -50,6 +50,7 @@ class UserDocumentsController extends AppController {
      * @return void
      */
     public function add() {
+        $this->layout = "nonav";
         //getting and setting tags
         $tags = $this->UserDocument->UserDocumentTag->Tag->find("list");
         $this->set("tags", $tags);
@@ -195,11 +196,12 @@ class UserDocumentsController extends AppController {
         } else {
             $this->Session->setFlash(__('The user document could not be deleted. Please, try again.'));
         }
-        return $this->redirect(array('action' => 'index'));
+        return $this->redirect(array('action' => 'udash'));
     }
 
 
     public function udash() {
+        $this->layout = "nonav";
         $uid = AuthComponent::user("id");
         //get user documents & affilated tags
         $uDocs = $this->UserDocument->uDocs($uid);

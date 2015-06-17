@@ -1,5 +1,4 @@
 <?php
-//debug($gDocs); 
 ?>
 <div class="dash">
     <h2 style="margin-bottom: 0px;"><?php echo __('Assigned Documents'); ?></h2>
