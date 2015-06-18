@@ -5,7 +5,7 @@
     ));
     ?>
     <fieldset>
-        <legend><?php echo __('Upload a Sector Document'); ?></legend>
+        <legend><?php echo __('Upload a Group Document'); ?></legend>
         <?php
         echo $this->Form->input('group_id');
         echo $this->Form->file("Documents");
