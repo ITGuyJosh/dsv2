@@ -68,5 +68,16 @@ class UserDocument extends AppModel {
         }
         return $uDocs;
     }
+    
+    function uploadUserDocs($uid, $postdata){
+        
+        $tmp_name = $postdata["Documents"]["tmp_name"];
+        $file_name = $postdata["Documents"]["name"];
+        $file_size = $postdata["Documents"]["size"];
 
+        $movedir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . $file_name;
+        $savedir = DS. "files" . DS . "users" . DS . $gid . DS;
+        
+        
+    }
 }

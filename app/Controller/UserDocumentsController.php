@@ -59,6 +59,14 @@ class UserDocumentsController extends AppController {
         if (is_numeric($uid)) {
             if ($this->request->is('post')) {
 
+                if ($this->UserDocument->uploadUserDocs($uid, $this->request->data["UserDocument"])) {
+                    $this->Session->setFlash(__('The group document has been saved.'));
+                    return $this->redirect(array('action' => 'add'));
+                } else {
+                    $this->Session->setFlash(__('The group document could not be saved. Please, try again or contact the systems administrator'));
+                }
+
+
                 //doc info            
                 $doc = $this->request->data["UserDocument"]["Documents"];
                 $tmp_name = $doc["tmp_name"];
@@ -95,7 +103,7 @@ class UserDocumentsController extends AppController {
 
                         //message and redirect
                         $this->Session->setFlash(__('The user document has been saved.'));
-                        
+
                         //moving old document, updating its db entry, saving new, adding new entry
                     } elseif (file_exists($target)) {
 
@@ -199,7 +207,6 @@ class UserDocumentsController extends AppController {
         return $this->redirect(array('action' => 'udash'));
     }
 
-
     public function udash() {
         $this->layout = "nonav";
         $uid = AuthComponent::user("id");
@@ -207,7 +214,6 @@ class UserDocumentsController extends AppController {
         $uDocs = $this->UserDocument->uDocs($uid);
         $this->set("uid", $uid);
         $this->set("uDocs", $uDocs);
-
     }
 
     public function download($docID) {

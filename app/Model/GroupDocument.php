@@ -53,30 +53,35 @@ class GroupDocument extends AppModel {
         $file_size = $postdata["Documents"]["size"];
 
         $movedir = WWW_ROOT . "files" . DS . "groups" . DS . $gid . DS . $file_name;
-        $savedir = DS. "files" . DS . "groups" . DS . $gid . DS;
+        $savedir = DS . "files" . DS . "groups" . DS . $gid . DS;
 
         //file size check
         if ($file_size >= 10000000) {
-            return false;
+            $message['message'] = "The document is too big, please reduce to 10MB or less and try again.";
+            $message['result'] = false;
+            return $message;
         } else {
             //moving the file from tmp to upload directory
-            if(move_uploaded_file($tmp_name, $movedir)){
+            if (move_uploaded_file($tmp_name, $movedir)) {
                 //save record to database
                 $this->create();
-                        $this->save(array(
-                            "GroupDocument" => array(
-                                "group_id" => $gid,
-                                "name" => $file_name,
-                                "dir" => $savedir,
-                                "ver" => null
-                            )
-                        ));
-                
-                        return true;
-                        
+                $this->save(array(
+                    "GroupDocument" => array(
+                        "group_id" => $gid,
+                        "name" => $file_name,
+                        "dir" => $savedir,
+                        "ver" => null
+                    )
+                ));
+
+                $message['message'] = 'The group document has been saved.';
+                $message['result'] = true;
+                return $message;
             } else {
-                return false;
-            }            
+                $message['message'] = "The document could not be uploaded. Please try again or contact the system administrator.";
+                $message['result'] = false;
+                return $message;
+            }
         }
     }
 

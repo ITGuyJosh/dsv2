@@ -52,12 +52,14 @@ class GroupDocumentsController extends AppController {
         $uid = AuthComponent::user("id");        
         
         if ($this->request->is('post')) {
-            
-            if ($this->GroupDocument->uploadGroupDocs($this->request->data["GroupDocument"])) {
-                $this->Session->setFlash(__('The group document has been saved.'));
+            //uploading document and returning if it passed/failed with a message
+            $validate= $this->GroupDocument->uploadGroupDocs($this->request->data["GroupDocument"]);
+            if ($validate['result']) {                
+                $this->Session->setFlash(__($validate["message"]));
                 return $this->redirect(array('action' => 'add'));
             } else {
-                $this->Session->setFlash(__('The group document could not be saved. Please, try again or contact the systems administrator'));
+                $this->Session->setFlash(__($validate["message"]));
+                return $this->redirect(array('action' => 'add'));
             }
         }
         $groups = $this->GroupDocument->Group->find('list');
