@@ -45,7 +45,17 @@ class GroupDocument extends AppModel {
             return $gDocs;
         }
         
-        public function uploadGroupDocs($uid){
+        public function uploadGroupDocs($uid, $postdata){
+            
+            $groupID = $postdata["group_id"];
+            $tmp_name = $postdata["Documents"]["tmp_name"];
+            $file_name = $postdata["Documents"]["name"];
+            $file_size = $postdata["Documents"]["size"];
+            
+            $movedir = WWW_ROOT . "files" . DS . "groups" . DS . $uid . DS . "docs" . DS;
+            $savedir = "files" . DS . "users" . DS . $uid . DS . "docs" . DS;
+            
+            debug($file_name);
             
         }
 }
