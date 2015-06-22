@@ -2,11 +2,6 @@
     
 <h2><?php echo __('Group'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($group['Group']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
 			<?php echo h($group['Group']['name']); ?>
@@ -34,28 +29,15 @@
 	<?php if (!empty($group['GroupDocument'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Group Id'); ?></th>
 		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Dir'); ?></th>
-		<th><?php echo __('Ver'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th class="actions" style="text-align: right;"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($group['GroupDocument'] as $groupDocument): ?>
 		<tr>
-			<td><?php echo $groupDocument['id']; ?></td>
-			<td><?php echo $groupDocument['group_id']; ?></td>
 			<td><?php echo $groupDocument['name']; ?></td>
-			<td><?php echo $groupDocument['dir']; ?></td>
-			<td><?php echo $groupDocument['ver']; ?></td>
-			<td><?php echo $groupDocument['created']; ?></td>
-			<td><?php echo $groupDocument['modified']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'group_documents', 'action' => 'view', $groupDocument['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'group_documents', 'action' => 'edit', $groupDocument['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'group_documents', 'action' => 'delete', $groupDocument['id']), array(), __('Are you sure you want to delete # %s?', $groupDocument['id'])); ?>
+			<td class="actions" style="text-align: right;">
+				<?php echo $this->Html->link(__('Download'), array('controller' => 'group_documents', 'action' => 'download', $groupDocument['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'group_documents', 'action' => 'delete', $groupDocument['id']), array(), __('Are you sure you want to delete # %s?', $groupDocument['name'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -73,32 +55,22 @@
 	<?php if (!empty($group['User'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Username'); ?></th>
 		<th><?php echo __('Email'); ?></th>
 		<th><?php echo __('Company'); ?></th>
-		<th><?php echo __('Password'); ?></th>
 		<th><?php echo __('Role'); ?></th>
-		<th><?php echo __('Group Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th class="actions" style="text-align: right;"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($group['User'] as $user): ?>
 		<tr>
-			<td><?php echo $user['id']; ?></td>
 			<td><?php echo $user['username']; ?></td>
 			<td><?php echo $user['email']; ?></td>
 			<td><?php echo $user['company']; ?></td>
-			<td><?php echo $user['password']; ?></td>
 			<td><?php echo $user['role']; ?></td>
-			<td><?php echo $user['group_id']; ?></td>
-			<td><?php echo $user['created']; ?></td>
-			<td><?php echo $user['modified']; ?></td>
-			<td class="actions">
+                        <td class="actions" style="text-align: right;">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'users', 'action' => 'edit', $user['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'users', 'action' => 'delete', $user['id']), array(), __('Are you sure you want to delete # %s?', $user['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'users', 'action' => 'delete', $user['id']), array(), __('Are you sure you want to delete # %s?', $user['username'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
