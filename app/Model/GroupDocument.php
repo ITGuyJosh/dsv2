@@ -53,7 +53,7 @@ class GroupDocument extends AppModel {
         $file_size = $postdata["Documents"]["size"];
 
         $movedir = WWW_ROOT . "files" . DS . "groups" . DS . $gid . DS . $file_name;
-        $savedir = DS . "files" . DS . "groups" . DS . $gid . DS;
+        $savedir = DS . "files" . DS . "groups" . DS . $gid . DS;        
 
         //file size check
         if ($file_size >= 10000000) {

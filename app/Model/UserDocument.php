@@ -68,16 +68,105 @@ class UserDocument extends AppModel {
         }
         return $uDocs;
     }
-    
-    function uploadUserDocs($uid, $postdata){
-        
+
+    function uploadUserDocs($uid, $postdata) {
+
         $tmp_name = $postdata["Documents"]["tmp_name"];
         $file_name = $postdata["Documents"]["name"];
         $file_size = $postdata["Documents"]["size"];
 
-        $movedir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . $file_name;
-        $savedir = DS. "files" . DS . "users" . DS . $gid . DS;
-        
-        
+        $movedir = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;
+        $savedir = "files" . DS . "users" . DS . $uid . DS . "docs" . DS . $file_name;
+        $arcmove = WWW_ROOT . "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
+        $arcsave = "files" . DS . "users" . DS . $uid . DS . "archive" . DS;
+
+        //file size check
+        if ($file_size >= 10000000) {
+            $message['message'] = "The document is too big, please reduce to 10MB or less and try again.";
+            $message['result'] = false;
+            return $message;
+        } else {
+            //adding new document & record            
+            if (!file_exists($movedir)) {
+                //upload doc
+                move_uploaded_file($tmp_name, $movedir);
+                //create record
+                $this->create();
+                $this->save(array(
+                    "UserDocument" => array(
+                        "user_id" => $uid,
+                        "name" => $file_name,
+                        "dir" => $savedir,
+                        "ver" => 1
+                    )
+                ));
+
+                //tag info & save
+                $tags = $postdata["Tags"];
+                $docID = $this->id;
+                $this->UserDocumentTag->saveDocTags($tags, $docID);
+
+                //message and redirect
+                $message['message'] = 'The  document has been saved.';
+                $message['result'] = true;
+                return $message;
+
+            //moving old document, updating its db entry, saving new, adding new entry
+            } elseif (file_exists($movedir)) {
+
+                $ver = $this->find("all", array(
+                    "conditions" => array(
+                        "dir" => $savedir
+                    ),
+                    "recursive" => -1
+                ));
+                
+                 
+                $ver = $ver[0]["UserDocument"]["ver"];
+
+
+                //set new location and update version number
+                $arcsave = $arcsave . $ver . "-" . $file_name;
+                $arcmove = $arcmove . $ver . "-" . $file_name;
+                //adding additional backslashes to sql because of how cakephp is handling it
+                
+                //update record & editing the filename, set version as 2               
+                $this->updateAll(array(
+                    "UserDocument.dir" => "'$arcsave'",
+                    "UserDocument.ver" => "'$ver'"
+                        ), array(
+                    "UserDocument.dir" => $movedir
+                ));
+                
+                //move old document to archive                
+                rename($movedir, $arcmove);
+                
+                //upload new file
+                move_uploaded_file($tmp_name, $movedir);
+                
+                //new version
+                $newver = $ver + 1;
+                
+                //add new record and set version as 1
+                $this->create();
+                $this->save(array(
+                    "UserDocument" => array(
+                        "user_id" => $uid,
+                        "name" => $file_name,
+                        "dir" => $savedir,
+                        "ver" => $newver
+                    )
+                ));
+//                $message['message'] = 'The document has been saved and the previous version has been moved to your archive.';
+//                $message['result'] = true;
+//                return $message;
+                return debug($arcsave);
+            } else {
+                $message['message'] = 'The document could not be saved. Please, try again or contact your systems administrator.';
+                $message['result'] = false;
+                return $message;
+            }
+        }
     }
+
 }
