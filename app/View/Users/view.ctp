@@ -1,11 +1,6 @@
 <div class="dash">
 <h2><?php echo __('User'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Username'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['username']); ?>
@@ -51,14 +46,14 @@
 		<th><?php echo __('Name'); ?></th>
 		<th><?php echo __('Ver'); ?></th>
 		<th><?php echo __('Created'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th class="actions" style="text-align: right"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($user['UserDocument'] as $userDocument): ?>
 		<tr>
 			<td><?php echo $userDocument['name']; ?></td>
 			<td><?php echo $userDocument['ver']; ?></td>
 			<td><?php echo $userDocument['created']; ?></td>
-			<td class="actions">
+                        <td class="actions" style="text-align: right">
 				<?php echo $this->Html->link(__('Download'), array('controller' => 'user_documents', 'action' => 'download', $userDocument['id'])); ?>
 				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'user_documents', 'action' => 'delete', $userDocument['id']), array(), __('Are you sure you want to delete : %s?', $userDocument['name'])); ?>
 			</td>
