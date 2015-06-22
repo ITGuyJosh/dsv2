@@ -1,61 +1,83 @@
 <?php
+
 App::uses('AppModel', 'Model');
+
 /**
  * GroupDocument Model
  *
  * @property Group $Group
  */
 class GroupDocument extends AppModel {
+    //The Associations below have been created with all possible keys, those that are not needed can be removed
 
+    /**
+     * belongsTo associations
+     *
+     * @var array
+     */
+    public $belongsTo = array(
+        'Group' => array(
+            'className' => 'Group',
+            'foreignKey' => 'group_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        )
+    );
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+    public function findGroupDocs($uid) {
+        //finding user group by their id
+        $ugroupID = $this->Group->User->find("first", array(
+            "fields" => array(
+                "group_id"
+            ),
+            "conditions" => array(
+                "user.id" => $uid
+            )
+        ));
+        //finding user group docs by group_id
+        $gDocs = $this->find("all", array(
+            "conditions" => array(
+                "group_id" => $ugroupID["User"]["group_id"]
+            )
+        ));
 
-/**
- * belongsTo associations
- *
- * @var array
- */
-	public $belongsTo = array(
-		'Group' => array(
-			'className' => 'Group',
-			'foreignKey' => 'group_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
-        
-        public function findGroupDocs($uid){
-            //finding user group by their id
-            $ugroupID = $this->Group->User->find("first", array(
-                "fields" => array(
-                    "group_id"
-                ),
-                "conditions" => array(
-                    "user.id" => $uid
-                )
-            ));
-            //finding user group docs by group_id
-            $gDocs = $this->find("all", array(
-                "conditions" => array(
-                    "group_id" => $ugroupID["User"]["group_id"]
-                )
-            ));
-            
-            return $gDocs;
+        return $gDocs;
+    }
+
+    public function uploadGroupDocs($postdata) {
+
+        $gid = $postdata["group_id"];
+        $tmp_name = $postdata["Documents"]["tmp_name"];
+        $file_name = $postdata["Documents"]["name"];
+        $file_size = $postdata["Documents"]["size"];
+
+        $movedir = WWW_ROOT . "files" . DS . "groups" . DS . $gid . DS . $file_name;
+        $savedir = DS. "files" . DS . "groups" . DS . $gid . DS;
+
+        //file size check
+        if ($file_size >= 10000000) {
+            return false;
+        } else {
+            //moving the file from tmp to upload directory
+            if(move_uploaded_file($tmp_name, $movedir)){
+                //save record to database
+                $this->create();
+                        $this->save(array(
+                            "GroupDocument" => array(
+                                "group_id" => $gid,
+                                "name" => $file_name,
+                                "dir" => $savedir,
+                                "ver" => null
+                            )
+                        ));
+                
+                        return true;
+                        
+            } else {
+                return false;
+            }            
         }
-        
-        public function uploadGroupDocs($uid, $postdata){
-            
-            $groupID = $postdata["group_id"];
-            $tmp_name = $postdata["Documents"]["tmp_name"];
-            $file_name = $postdata["Documents"]["name"];
-            $file_size = $postdata["Documents"]["size"];
-            
-            $movedir = WWW_ROOT . "files" . DS . "groups" . DS . $uid . DS . "docs" . DS;
-            $savedir = "files" . DS . "users" . DS . $uid . DS . "docs" . DS;
-            
-            debug($file_name);
-            
-        }
+    }
+
 }

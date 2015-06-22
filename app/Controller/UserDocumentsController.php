@@ -95,7 +95,7 @@ class UserDocumentsController extends AppController {
 
                         //message and redirect
                         $this->Session->setFlash(__('The user document has been saved.'));
-                        //return $this->redirect(array('action' => 'index'));
+                        
                         //moving old document, updating its db entry, saving new, adding new entry
                     } elseif (file_exists($target)) {
 
