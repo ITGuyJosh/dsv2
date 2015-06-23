@@ -5,7 +5,7 @@
 
 ## Description
 
-A prototype web based document store for users to login to download documents that administrators can upload and assign to the customers through having a group documents related to the users particular group. The users will be able to upload documents and feel secure that they won't overwrite their documents though having an archiving system in place for samely named documents.
+A prototype web based document store for users to login, search for, and download documents that administrators can assign to them via groups. Each group contains its own relavent documentation that administrators can then upload. An archiving system is in place when users upload documents so documents cannot be overwritten.
 
 ## Thanks & Dependencies
 
@@ -14,7 +14,7 @@ This project was created using the [CakePHP](http://www.cakephp.org) - The rapid
 * [jQuery](https://jquery.com/)
 * [DataTables](https://www.datatables.net/)
 
-The Document Store could not have happened without [IRS LTD](http://www.irs-limited.com/) giving me the opportunity to prototype of their backlog projects.
+The Document Store could not have happened without [IRS LTD](http://www.irs-limited.com/) giving me the opportunity to prototype one of their backlog projects.
 
 ## Improvements over this Prototype
 
