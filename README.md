@@ -23,12 +23,14 @@ There are a number of additions that would make this Document Store even better.
 * A
 * B
 * C
+* D
 
 ## Key Features
 
 * A
 * B
 * C
+* D
 
 ## Documentation
 
