@@ -157,6 +157,12 @@ class UserDocument extends AppModel {
                         "ver" => $newver
                     )
                 ));
+                
+                //tag info & save
+                $tags = $postdata["Tags"];
+                $docID = $this->id;
+                $this->UserDocumentTag->saveDocTags($tags, $docID);
+                
                 $message['message'] = 'The document has been saved and the previous version has been moved to your archive.';
                 $message['result'] = true;
                 return $message;
