@@ -105,7 +105,7 @@ class UserDocument extends AppModel {
                 $tags = $postdata["Tags"];
                 $docID = $this->id;
                 $this->UserDocumentTag->saveDocTags($tags, $docID);
-
+                
                 //message and redirect
                 $message['message'] = 'The  document has been saved.';
                 $message['result'] = true;
@@ -121,21 +121,24 @@ class UserDocument extends AppModel {
                     "recursive" => -1
                 ));
                 
-                 
+                //old version
                 $ver = $ver[0]["UserDocument"]["ver"];
-
-
+                //new version
+                $newver = $ver + 1;
+                
                 //set new location and update version number
-                $arcsave = $arcsave . $ver . "-" . $file_name;
                 $arcmove = $arcmove . $ver . "-" . $file_name;
+                $arcsave = $arcsave . $ver . "-" . $file_name;
+                
                 //adding additional backslashes to sql because of how cakephp is handling it
+                $arcsave = str_replace('\\', '\\\\', $arcsave);
                 
                 //update record & editing the filename, set version as 2               
                 $this->updateAll(array(
                     "UserDocument.dir" => "'$arcsave'",
                     "UserDocument.ver" => "'$ver'"
                         ), array(
-                    "UserDocument.dir" => $movedir
+                    "UserDocument.dir" => $savedir
                 ));
                 
                 //move old document to archive                
@@ -143,9 +146,6 @@ class UserDocument extends AppModel {
                 
                 //upload new file
                 move_uploaded_file($tmp_name, $movedir);
-                
-                //new version
-                $newver = $ver + 1;
                 
                 //add new record and set version as 1
                 $this->create();
@@ -157,10 +157,9 @@ class UserDocument extends AppModel {
                         "ver" => $newver
                     )
                 ));
-//                $message['message'] = 'The document has been saved and the previous version has been moved to your archive.';
-//                $message['result'] = true;
-//                return $message;
-                return debug($arcsave);
+                $message['message'] = 'The document has been saved and the previous version has been moved to your archive.';
+                $message['result'] = true;
+                return $message;
             } else {
                 $message['message'] = 'The document could not be saved. Please, try again or contact your systems administrator.';
                 $message['result'] = false;

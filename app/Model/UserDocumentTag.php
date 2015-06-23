@@ -35,7 +35,7 @@ class UserDocumentTag extends AppModel {
 
     public function saveDocTags($tags, $docID) {
         //only saving if tags are selected
-        if (is_null($tags)) {
+        if (!is_null($tags)) {
             foreach ($tags as $tag) {
                 $this->create();
                 $this->save(array(
