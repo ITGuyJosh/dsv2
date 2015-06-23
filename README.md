@@ -7,6 +7,7 @@
 
 A prototype web based document store for users to login to download documents that administrators can upload and assign to the customers through having a group documents related to the users particular group. The users will be able to upload documents and feel secure that they won't overwrite their documents though having an archiving system in place for samely named documents.
 
+<<<<<<< HEAD
 ## Thanks & Dependencies
 
 This project was created using the [CakePHP](http://www.cakephp.org) - The rapid development PHP framework. A number of dependencies where also used, these include:
@@ -56,6 +57,57 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
+=======
+## Foreword
+
+### Thanks & Dependencies
+
+This project was created using the [CakePHP](http://www.cakephp.org) - The rapid development PHP framework. A number of dependencies where also used, these include:
+
+* [jQuery](https://jquery.com/)
+* [DataTables](https://www.datatables.net/)
+
+The Document Store could not have happened without [IRS LTD](http://www.irs-limited.com/) giving me the opportunity to prototype of their backlog projects.
+
+### Improvements over this Prototype
+
+There are a number of additions that would make this Document Store even better. These include:
+
+* A
+* B
+* C
+
+## Key Features
+
+* A
+* B
+* C
+
+## Documentation
+
+* [Project Requirements](#)
+* [Project Design Document](#)
+* [Development Feature List](#)
+* [Database Designs](#)
+* [Project Creation Document](#)
+* [Test Strategy](#)
+* [Git Maintenance Process](#)
+* [User Guide](#)
+* [Admin Guide](#)
+
+## MIT Licence
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+>>>>>>> 540edf588296cf3180d4c9e30540f075f13ff5e3
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
