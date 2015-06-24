@@ -127,9 +127,9 @@ class UsersController extends AppController {
                $uid = AuthComponent::user("id");
                //geting which type of user it is to navigate to appropriate dashboard
                $user = $this->User->whichUser($uid);
-               if($user["User"]["role"] == "Admin"){
+               if($user["User"]["role"] == "0"){
                    return $this->redirect(array("action" => "adash"));
-               } elseif($user["User"]["role"] == "User"){
+               } elseif($user["User"]["role"] == "1"){
                    $this->layout = "nonav";
                    return $this->redirect(array("controller" => "user_documents", "action" => "udash"));
                } else{
