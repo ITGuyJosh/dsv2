@@ -103,5 +103,13 @@ class User extends AppModel {
             ));
             return $user;
         }
-
+        
+        public function countData(){
+            $data["noUsers"] = $this->find("count");
+            $data["noGroups"] = $this->Group->find("count");
+            $data["noTags"] = $this->UserDocument->UserDocumentTag->Tag->find("count");
+            
+            return $data;            
+        }
+        
 }

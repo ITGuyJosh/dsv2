@@ -12,24 +12,17 @@
         </thead>
         <tbody>
             <tr>
-                <td>Number of Users</td>
-                <td>#data#</td>
+                <td>Total Users</td>
+                <td><?php echo $data["noUsers"]; ?></td>
             </tr>
             <tr>
-                <td>Most popular Sector</td>
-                <td>#data#</td>
+                <td>Total Sector Groups</td>
+                <td><?php echo $data["noGroups"]; ?></td>
             </tr>
             <tr>
-                <td>Most popular Tag</td>
-                <td>#data#</td>
-            </tr>
-            <tr>
-                <td>Number of Support Page Clicks</td>
-                <td>#data#</td>
+                <td>Total Tags</td>
+                <td><?php echo $data["noTags"]; ?></td>
             </tr>
         </tbody>
     </table>
 </div>
-<?php
-//debug($uid);
-?>

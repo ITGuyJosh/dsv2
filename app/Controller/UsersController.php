@@ -147,7 +147,8 @@ class UsersController extends AppController {
     }
     
     public function adash(){
-        
+        $data = $this->User->countData();
+        $this->set("data", $data);
     }
 
 }
