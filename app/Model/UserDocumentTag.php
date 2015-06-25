@@ -45,5 +45,17 @@ class UserDocumentTag extends AppModel {
             }
         }
     }
+    
+    public function deleteDocTags($did){
+//        $dTags = $this->find("all", array(
+//            "conditions" => array(
+//                "UserDocumentTag.user_document_id" => $did
+//            )
+//        ));
+        
+        $this->deleteAll($conditions = array("user_document_id" => $did));
+        
+        return true;
+    }
 
 }

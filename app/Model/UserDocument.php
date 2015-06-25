@@ -173,5 +173,17 @@ class UserDocument extends AppModel {
             }
         }
     }
+    
+    public function deleteDoc($did){
+        $uDoc = $this->find("all", array(
+            "conditions" => array(
+                "UserDocument.id" => $did
+            )
+        ));
+        
+        unlink($uDoc[0]["UserDocument"]["dir"]);
+        
+        return true;
+    }
 
 }

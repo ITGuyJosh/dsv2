@@ -109,13 +109,21 @@ class UserDocumentsController extends AppController {
      * @param string $id
      * @return void
      */
-    public function delete($id = null) {
-        $this->UserDocument->id = $id;
+    public function delete($did) {
+        $this->UserDocument->id = $did;
         if (!$this->UserDocument->exists()) {
             throw new NotFoundException(__('Invalid user document'));
         }
+        
+        //unlink file
+        $this->UserDocument->deleteDoc($did);
+        
+        //deleting tag records
+        $this->UserDocument->UserDocumentTag->deleteDocTags($did);
+        
+        //deleting doc record
         $this->request->allowMethod('post', 'delete');
-        if ($this->UserDocument->delete()) {
+        if ($this->UserDocument->delete()) {                        
             $this->Session->setFlash(__('The user document has been deleted.'));
         } else {
             $this->Session->setFlash(__('The user document could not be deleted. Please, try again.'));
