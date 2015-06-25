@@ -84,5 +84,17 @@ class GroupDocument extends AppModel {
             }
         }
     }
+    
+    public function deleteGroupDoc($gid){
+        $gDoc = $this->find("all", array(
+            "conditions" => array(
+                "GroupDocument.id" => $gid
+            )
+        ));
+        
+        unlink($gDoc[0]["GroupDocument"]["dir"]);
+        
+        return true;
+    }
 
 }

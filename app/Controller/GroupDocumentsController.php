@@ -48,13 +48,13 @@ class GroupDocumentsController extends AppController {
      * @return void
      */
     public function add() {
-        
-        $uid = AuthComponent::user("id");        
-        
+
+        $uid = AuthComponent::user("id");
+
         if ($this->request->is('post')) {
             //uploading document and returning if it passed/failed with a message
-            $validate= $this->GroupDocument->uploadGroupDocs($this->request->data["GroupDocument"]);
-            if ($validate['result']) {                
+            $validate = $this->GroupDocument->uploadGroupDocs($this->request->data["GroupDocument"]);
+            if ($validate['result']) {
                 $this->Session->setFlash(__($validate["message"]));
                 return $this->redirect(array('action' => 'add'));
             } else {
@@ -100,18 +100,21 @@ class GroupDocumentsController extends AppController {
      * @param string $id
      * @return void
      */
-    public function delete($id = null) {
-        $this->GroupDocument->id = $id;
+    public function delete($gid) {
+        $this->GroupDocument->id = $gid;
         if (!$this->GroupDocument->exists()) {
             throw new NotFoundException(__('Invalid group document'));
         }
+        
+        $this->GroupDocument->deleteGroupDoc($gid);
+        
         $this->request->allowMethod('post', 'delete');
         if ($this->GroupDocument->delete()) {
             $this->Session->setFlash(__('The group document has been deleted.'));
         } else {
             $this->Session->setFlash(__('The group document could not be deleted. Please, try again.'));
         }
-        return $this->redirect(array('action' => 'index'));
+        return $this->redirect(array("controller" => "groups", 'action' => 'index'));
     }
 
     public function ugroup($uid) {
