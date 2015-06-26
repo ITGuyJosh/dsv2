@@ -32,6 +32,9 @@ $cakeDescription = __d('cake_dev', 'Document Store');
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
+        
+<!--ALPHA RELEASE-->
+
     </head>
     <body>
         <div id="container">            

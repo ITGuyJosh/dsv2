@@ -30,7 +30,7 @@ App::uses('Controller', 'Controller');
  * @package		app.Controller
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
+class AppController extends Controller {            
     public $components = array(
         'Session',
         'Auth' => array(
@@ -59,5 +59,5 @@ class AppController extends Controller {
     public function webroot(){
         $this->autoRender = false;
         return WWW_ROOT;        
-    }
+    }            
 }
