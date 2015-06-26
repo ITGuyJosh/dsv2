@@ -94,6 +94,9 @@ class TagsController extends AppController {
 			throw new NotFoundException(__('Invalid tag'));
 		}
 		$this->request->allowMethod('post', 'delete');
+                
+                $this->Tag->UserDocumentTag->deleteTagDocs($this->Tag->id);
+                
 		if ($this->Tag->delete()) {
 			$this->Session->setFlash(__('The tag has been deleted.'));
 		} else {
