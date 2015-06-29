@@ -7,6 +7,16 @@
 
 A prototype web based document store for users to login, search for, and download documents that administrators can assign to them via groups. Each group contains its own relavent documentation that administrators can then upload. An archiving system is in place when users upload documents so documents cannot be overwritten.
 
+### Demo
+You can access the website via [ds.itguyjosh.com](http://ds.itguyjosh.com), and entering either the following details.
+#### Admin
+* email : admin@mail.com
+* pass : admin
+
+#### User
+* email : user@mail.com
+* pass : user
+
 ## Thanks & Dependencies
 
 This project was created using the [CakePHP](http://www.cakephp.org) - The rapid development PHP framework. A number of dependencies where also used, these include:
@@ -16,21 +26,14 @@ This project was created using the [CakePHP](http://www.cakephp.org) - The rapid
 
 The Document Store could not have happened without [IRS LTD](http://www.irs-limited.com/) giving me the opportunity to prototype one of their backlog projects.
 
-## Improvements over this Prototype
-
-There are a number of additions that would make this Document Store even better. These include:
-
-* A
-* B
-* C
-* D
-
 ## Key Features
 
-* A
-* B
-* C
-* D
+* Administration section for managing documents, users, tags & groups.
+* Document upload & download.
+* User Document archiving.
+* Document filtering & searching.
+* Tag creation & assignment to documents.
+* User & Administration Guides.
 
 ## Documentation
 
@@ -43,6 +46,15 @@ There are a number of additions that would make this Document Store even better.
 * [Git Maintenance Process](#)
 * [User Guide](#)
 * [Admin Guide](#)
+
+## Improvements over this Prototype
+
+There are a number of additions that would make this Document Store even better. These include:
+
+* ACL user session handling - right now only an adhoc Auth::Component system is in use. 
+* Being able to assign multiple groups to each user.
+* User account management, such as: password reset & email notifications.
+* Support section for users to request assistance.
 
 ## MIT Licence
 
