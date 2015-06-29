@@ -73,7 +73,6 @@ class UserDocumentsController extends AppController {
 
         $users = $this->UserDocument->User->find('list');
         $this->set(compact('users'));
-        $this->set("uid", $uid);
     }
 
     /**
