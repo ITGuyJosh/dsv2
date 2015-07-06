@@ -37,15 +37,19 @@ The Document Store could not have happened without [IRS LTD](http://www.irs-limi
 
 ## Documentation
 
-* [Project Requirements](#)
-* [Project Design Document](#)
-* [Development Feature List](#)
-* [Database Designs](#)
-* [Project Creation Document](#)
-* [Test Strategy](#)
-* [Git Maintenance Process](#)
-* [User Guide](#)
-* [Admin Guide](#)
+The documentation surrounding this project, including:
+
+* Project Requirements
+* Project Design Document
+* Development Feature List
+* Database Designs
+* Project Creation Document
+* Test Strategy & Logs
+* Maintenance Procedure
+* User Guide
+* Admin Guide
+
+[Are available from this link.](https://drive.google.com/folderview?id=0B91KgZMFVJ3_fmI2cEc3djF4cllqbElXSzIySGtCc2RrTmJORW8yMV90T0d5OXF0eTlOUFE&usp=sharing)
 
 ## Improvements over this Prototype
 
