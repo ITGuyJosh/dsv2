@@ -32,8 +32,8 @@ $cakeDescription = __d('cake_dev', 'Document Store');
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
-        
-<!--ALPHA RELEASE-->
+
+        <!--ALPHA RELEASE-->
 
     </head>
     <body>
@@ -50,7 +50,13 @@ $cakeDescription = __d('cake_dev', 'Document Store');
                 <?php echo $this->fetch('content'); ?>
             </div>
             <div id="footer">
-
+                <div id="footer-links">
+                    <?php
+                    echo $this->Html->link("User Guide", "/files/User Guide.pdf", array(
+                        "target" => "_blank"
+                    ));
+                    ?>
+                </div>
             </div>
         </div>
         <?php //echo $this->element('sql_dump'); ?>

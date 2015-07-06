@@ -32,7 +32,7 @@ class GroupDocument extends AppModel {
                 "group_id"
             ),
             "conditions" => array(
-                "user.id" => $uid
+                "User.id" => $uid
             )
         ));
         //finding user group docs by group_id

@@ -32,9 +32,9 @@ $cakeDescription = __d('cake_dev', 'Document Store');
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
-        
+
         <!--ALPHA RELEASE-->
-        
+
     </head>
     <body>
         <div id="container">            
@@ -43,17 +43,17 @@ $cakeDescription = __d('cake_dev', 'Document Store');
                 <div class="top-nav-container">
                     <div id="anav">
                         <ul>
-                            <li><?php echo $this->Html->link("Dashboard", array("controller" => "users", "action" => "adash"));?></li> 
+                            <li><?php echo $this->Html->link("Dashboard", array("controller" => "users", "action" => "adash")); ?></li> 
                             <li><?php echo $this->Html->link("Add User", array("controller" => "users", "action" => "add")); ?></li>
                             <li><?php echo $this->Html->link("View Users", array("controller" => "users", "action" => "index")); ?></li>
-                            <li><?php echo $this->Html->link("Add Group Document", array("controller" => "group_documents", "action" => "add"));?></li>
-                            <li><?php echo $this->Html->link("Add Tags", array("controller" => "tags", "action" => "add"));?></li>
+                            <li><?php echo $this->Html->link("Add Group Document", array("controller" => "group_documents", "action" => "add")); ?></li>
+                            <li><?php echo $this->Html->link("Add Tags", array("controller" => "tags", "action" => "add")); ?></li>
                             <li>
                                 <ul>                                    
-                                    <li><?php echo $this->Html->link("View Tags", array("controller" => "tags", "action" => "index"));?></li>
-                                    <li><?php echo $this->Html->link("Add Groups", array("controller" => "groups", "action" => "add"));?></li>
-                                    <li><?php echo $this->Html->link("View Groups", array("controller" => "groups", "action" => "index"));?></li>
-                                    <li><?php echo $this->Html->link("Logout", array("controller" => "users", "action" => "logout"));?></li>
+                                    <li><?php echo $this->Html->link("View Tags", array("controller" => "tags", "action" => "index")); ?></li>
+                                    <li><?php echo $this->Html->link("Add Groups", array("controller" => "groups", "action" => "add")); ?></li>
+                                    <li><?php echo $this->Html->link("View Groups", array("controller" => "groups", "action" => "index")); ?></li>
+                                    <li><?php echo $this->Html->link("Logout", array("controller" => "users", "action" => "logout")); ?></li>
                                 </ul>
                             </li>
                         </ul>
@@ -67,9 +67,15 @@ $cakeDescription = __d('cake_dev', 'Document Store');
                 <?php echo $this->fetch('content'); ?>
             </div>
             <div id="footer">
-
+                <div id="footer-links">
+                    <?php
+                    echo $this->Html->link("Admin Guide", "/files/Admin Guide.pdf", array(
+                        "target" => "_blank"
+                    ));
+                    ?>
+                </div>
             </div>
         </div>
-        <?php //echo $this->element('sql_dump'); ?>
+<?php //echo $this->element('sql_dump');  ?>
     </body>
 </html>

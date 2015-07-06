@@ -73,7 +73,6 @@ class UserDocumentsController extends AppController {
 
         $users = $this->UserDocument->User->find('list');
         $this->set(compact('users'));
-        $this->set("uid", $uid);
     }
 
     /**
@@ -143,16 +142,8 @@ class UserDocumentsController extends AppController {
     public function download($docID) {
         $this->autoRender = FALSE;
 
-        $path = $this->UserDocument->find("first", array(
-            "conditions" => array(
-                "id" => $docID
-            ),
-            "fields" => array(
-                "dir"
-            ),
-            "recursive" => -1
-        ));
-
+        $path = $this->UserDocument->downloadDoc($docID);        
+        
         $this->response->file($path["UserDocument"]["dir"], array("download" => true));
     }
 

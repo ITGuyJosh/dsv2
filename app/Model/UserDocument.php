@@ -20,9 +20,6 @@ class UserDocument extends AppModel {
         'User' => array(
             'className' => 'User',
             'foreignKey' => 'user_id',
-            'conditions' => '',
-            'fields' => '',
-            'order' => ''
         )
     );
 
@@ -185,5 +182,18 @@ class UserDocument extends AppModel {
         
         return true;
     }
-
+    
+    public function downloadDoc($docID){
+        $path = $this->find("first", array(
+            "conditions" => array(
+                "id" => $docID
+            ),
+            "fields" => array(
+                "dir"
+            ),
+            "recursive" => -1
+        ));
+        
+        return $path;
+    }
 }

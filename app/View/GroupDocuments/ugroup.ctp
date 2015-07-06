@@ -4,7 +4,7 @@
     <h2 style="margin-bottom: 0px;"><?php echo __('Assigned Documents'); ?></h2>
     
     <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Upload Document", array("controller" => "user_documents" ,"action" => "add")); ?></span>
-    <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Dashboard", array("controller" => "user_documents","action" => "udash"), $uid); ?></span>
+    <span class="actions" style="float: right; margin-bottom: 10px;"><?php echo $this->Html->link("Dashboard", array("controller" => "user_documents","action" => "udash")); ?></span>
     <table id="gDocs">
         <thead>
             <tr>
